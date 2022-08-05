@@ -1,0 +1,1 @@
+magently/module-content-setup 
