@@ -1,0 +1,20 @@
+{
+    "name": "magently/module-content-setup",
+    "description": "Magently Content Setup helper module for Magento 2",
+    "require": {
+        "php": "^7.1",
+        "magento/framework": ">=102.0.0"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "src/registration.php"
+        ],
+        "psr-4": {
+            "Magently\\ContentSetup\\": "src/"
+        }
+    }
+}
