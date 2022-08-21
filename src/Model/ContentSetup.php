@@ -6,6 +6,8 @@ use Magently\ContentSetup\Service\CmsPage;
 use Magently\ContentSetup\Service\CmsPageFactory;
 use Magently\ContentSetup\Service\CmsBlock;
 use Magently\ContentSetup\Service\CmsBlockFactory;
+use Magently\ContentSetup\Service\EmailTemplate;
+use Magently\ContentSetup\Service\EmailTemplateFactory;
 
 /**
  * Class ContentSetup
@@ -35,6 +37,16 @@ class ContentSetup
     private $cmsBlockSetup;
 
     /**
+     * @var EmailTemplateFactory
+     */
+    private $emailTemplateSetupFactory;
+
+    /**
+     * @var EmailTemplate
+     */
+    private $emailTemplateSetup;
+
+    /**
      * @var string
      */
     private $moduleName;
@@ -42,15 +54,18 @@ class ContentSetup
     /**
      * @param CmsPageFactory $cmsPageSetupFactory
      * @param CmsBlockFactory $cmsBlockSetupFactory
+     * @param EmailTemplateFactory $emailTemplateSetupFactory
      * @param string $moduleName
      */
     public function __construct(
         CmsPageFactory $cmsPageSetupFactory,
         CmsBlockFactory $cmsBlockSetupFactory,
+        EmailTemplateFactory $emailTemplateSetupFactory,
         string $moduleName
     ) {
         $this->cmsPageSetupFactory = $cmsPageSetupFactory;
         $this->cmsBlockSetupFactory = $cmsBlockSetupFactory;
+        $this->emailTemplateSetupFactory = $emailTemplateSetupFactory;
         $this->moduleName = $moduleName;
 
     }
@@ -77,5 +92,17 @@ class ContentSetup
             $this->cmsBlockSetup = $this->cmsBlockSetupFactory->create(['moduleName' => $this->moduleName]);
         }
         $this->cmsBlockSetup->setupBlock($blockIdentifier);
+    }
+
+    /**
+     * @param string $emailTemplateCode
+     * @return void
+     */
+    public function setupEmailTemplate(string $emailTemplateCode)
+    {
+        if (!$this->emailTemplateSetup) {
+            $this->emailTemplateSetup = $this->emailTemplateSetupFactory->create(['moduleName' => $this->moduleName]);
+        }
+        $this->emailTemplateSetup->setupEmailTemplate($emailTemplateCode);
     }
 }
