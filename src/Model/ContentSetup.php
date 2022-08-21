@@ -8,6 +8,7 @@ use Magently\ContentSetup\Service\CmsBlock;
 use Magently\ContentSetup\Service\CmsBlockFactory;
 use Magently\ContentSetup\Service\EmailTemplate;
 use Magently\ContentSetup\Service\EmailTemplateFactory;
+use Magently\ContentSetup\Service\Variable;
 
 /**
  * Class ContentSetup
@@ -47,6 +48,11 @@ class ContentSetup
     private $emailTemplateSetup;
 
     /**
+     * @var Variable
+     */
+    private $variableSetup;
+
+    /**
      * @var string
      */
     private $moduleName;
@@ -61,13 +67,14 @@ class ContentSetup
         CmsPageFactory $cmsPageSetupFactory,
         CmsBlockFactory $cmsBlockSetupFactory,
         EmailTemplateFactory $emailTemplateSetupFactory,
+        Variable $variableSetup,
         string $moduleName
     ) {
         $this->cmsPageSetupFactory = $cmsPageSetupFactory;
         $this->cmsBlockSetupFactory = $cmsBlockSetupFactory;
         $this->emailTemplateSetupFactory = $emailTemplateSetupFactory;
+        $this->variableSetup = $variableSetup;
         $this->moduleName = $moduleName;
-
     }
 
     /**
@@ -104,5 +111,21 @@ class ContentSetup
             $this->emailTemplateSetup = $this->emailTemplateSetupFactory->create(['moduleName' => $this->moduleName]);
         }
         $this->emailTemplateSetup->setupEmailTemplate($emailTemplateCode);
+    }
+
+    /**
+     * @param string $code
+     * @param string|null $name
+     * @param string|null $plainValue
+     * @param string|null $htmlValue
+     * @return void
+     */
+    public function setupVariable(
+        string $code,
+        string $name = null,
+        string $plainValue = null,
+        string $htmlValue = null
+    ) {
+        $this->variableSetup->setupVariable($code, $name, $plainValue, $htmlValue);
     }
 }

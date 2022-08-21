@@ -87,11 +87,10 @@ class EmailTemplate
         $templateInstance = $this->templateFactory->create();
         $this->templateResource->load($templateInstance, $code, 'template_code');
 
-        if ($templateInstance->getId()) {
-            return $templateInstance;
+        if (!$templateInstance->getId()) {
+            $templateInstance->setTemplateCode($code);
         }
 
-        $templateInstance->setTemplateCode($code);
         return $templateInstance;
     }
 }
