@@ -1,6 +1,6 @@
 {
     "name": "magently/module-content-setup",
-    "description": "Magently Content Setup helper module for Magento 2",
+    "description": "Magently Content Setup module for Magento 2.",
     "require": {
         "php": ">=7.1",
         "magento/framework": ">=102.0.0"
